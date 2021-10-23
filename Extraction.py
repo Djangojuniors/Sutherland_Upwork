@@ -16,7 +16,7 @@ KEY_WORDS = ['CONSOLIDATED RESULTS OF OPERATIONS', 'Income Statement', 'INCOME S
 table_heading = []
 # uploaded_file = st.file_uploader("Choose a file", "pdf")
 
-filename = r'10 K Docs\CocaCola.pdf'
+filename = r'10 K Docs\Jp Morgan.pdf'
 
 with pdfplumber.open(filename) as _pdf:
     numd = 0

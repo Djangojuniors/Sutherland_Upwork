@@ -120,7 +120,7 @@ def detect_tables(pdf_file, pg):
 
     interesting_areas = []
     for x in output:
-        [x1, y1, x2, y2] = bboxes_pdf(img, pdf_page, x)
+        [x1, y1, x2, y2] = bboxes_pdf(img, pdf_page,x, pdf_file, pg)
         bbox_camelot = [
             ",".join([str(x1), str(y1), str(x2), str(y2)])
         ][0]  # x1,y1,x2,y2 where (x1, y1) -> left-top and (x2, y2) -> right-bottom in PDF coordinate space
