@@ -22,8 +22,6 @@ with pdfplumber.open(filename) as _pdf:
     numd = 0
     for pages in _pdf.pages:
         _text = pages.extract_text()
-        # print(_text)
-
         for d in KEY_WORDS:
             if d in _text:
                 print(d)

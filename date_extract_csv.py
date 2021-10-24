@@ -3,50 +3,33 @@ import pandas as pd
 import datetime
 import sys
 import re
+import spacy
+
+nlp = spacy.load("en_core_web_sm")
+
 csv_file = r"10 K Docs\Apple-34-table-0.csv"
+
 extracted_dates = []
-
-months_choices = []
-for i in range(1,13):
-    months_choices.append(datetime.date(2008, i, 1).strftime('%B'))
-# print(months_choices)
-
-# sys.exit()
-
+test = []
 
 var = pd.read_csv(csv_file)
+new_df = pd.read_csv(csv_file)
 for num, i in enumerate(var.columns):
     temp = []
     if num > 1:
-        # print(var[i].values)
         val = list(var[i].values)
         val = [i  for i in val if str(i) != 'nan']
-        for month in months_choices:
-            filter = re.compile(month.lower())
-            for v in val:
-                # print(v)
-                if filter.match(v.lower()):
-                    print(v)
-
-        # for i in val:
-        #     val = i
-        #     if any(val for items in months_choices):
-        #         print(i)
-            # if i.find(str(months_choices)):
-            #     print(i)
-
-
-                # print(j)
-        # print(val)
-
-
-
-        # for v in val:
-            # date = extract_date(v)
-            # print(date)
-
-            # print(val)
-            # val = ','.join(val)
-            # print(val)
-            # print(type(val))
-            # break
+        for v in val:
+            year = nlp(v)
+            for entity in year.ents:
+                if entity.label_ == 'DATE':
+                    temp.append(v)
+    if len(temp) > 0:
+        date = "".join(temp)
+        new_df = new_df.rename({i: date}, axis=1)
+        for k in temp:
+            new_df = new_df.replace(k, '', regex=True)
+        new_df.to_csv('testing_new.csv')
+# print(test)
+# date_format = " ".join(str(x) for x in test)
+# print(date_format)
