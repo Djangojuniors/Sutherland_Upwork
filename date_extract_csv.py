@@ -7,7 +7,7 @@ import spacy
 
 nlp = spacy.load("en_core_web_sm")
 
-csv_file = r"10 K Docs\Apple-34-table-0.csv"
+csv_file = r"10 K Docs\Starbucks-35-table-0.csv"
 
 extracted_dates = []
 test = []
@@ -20,7 +20,7 @@ for num, i in enumerate(var.columns):
         val = list(var[i].values)
         val = [i  for i in val if str(i) != 'nan']
         for v in val:
-            year = nlp(v)
+            year = nlp(str(v))
             for entity in year.ents:
                 if entity.label_ == 'DATE':
                     temp.append(v)
@@ -29,7 +29,7 @@ for num, i in enumerate(var.columns):
         new_df = new_df.rename({i: date}, axis=1)
         for k in temp:
             new_df = new_df.replace(k, '', regex=True)
-        new_df.to_csv('testing_new.csv')
+        new_df.to_csv('output_csv/Starbucks-35-table-0.csv')
 # print(test)
 # date_format = " ".join(str(x) for x in test)
 # print(date_format)

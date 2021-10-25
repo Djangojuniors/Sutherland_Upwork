@@ -7,7 +7,7 @@ import tabula
 import csv
 from predict_table import detect_tables
 
-KEY_WORDS = ['CONSOLIDATED RESULTS OF OPERATIONS', 'Income Statement', 'INCOME STATEMENTS',
+KEY_WORDS = ['CONSOLIDATED RESULTS OF OPERATIONS',
              'CONSOLIDATED STATEMENTS OF OPERATIONS',
              'CONSOLIDATED STATEMENTS OF INCOME']
 
@@ -16,14 +16,14 @@ KEY_WORDS = ['CONSOLIDATED RESULTS OF OPERATIONS', 'Income Statement', 'INCOME S
 table_heading = []
 # uploaded_file = st.file_uploader("Choose a file", "pdf")
 
-filename = r'10 K Docs\Jp Morgan.pdf'
+filename = r'10 K Docs\Starbucks.pdf'
 
 with pdfplumber.open(filename) as _pdf:
     numd = 0
     for pages in _pdf.pages:
         _text = pages.extract_text()
         for d in KEY_WORDS:
-            if d in _text:
+            if d.lower() in _text.lower():
                 print(d)
                 print(numd)
                 detect_tables(pdf_file=filename, pg=numd + 1)
