@@ -71,7 +71,7 @@ def norm_bbox(img, bbox, x_corr=0.05, y_corr=0.05):
     return [x1_img_norm - w_corr, y1_img_norm - h_corr / 2, x2_img_norm + w_corr, y2_img_norm + 2 * h_corr]
 
 
-def bboxes_pdf(img, pdf_page, bbox,pdf_file, pg, save_cropped=False):
+def bboxes_pdf(img, pdf_page, bbox,pdf_file, pg, save_cropped = True):
     W_pdf = float(pdf_page.cropBox.getLowerRight()[0])
     H_pdf = float(pdf_page.cropBox.getUpperLeft()[1])
 
@@ -86,7 +86,7 @@ def bboxes_pdf(img, pdf_page, bbox,pdf_file, pg, save_cropped=False):
         output = PdfFileWriter()
         output.addPage(page)
 
-        with open("cropped_" + pdf_file[:-4] + "-" + str(pg) + ".pdf", "wb") as out_f:
+        with open(pdf_file[:-4] + "-" + str(pg) + ".pdf", "wb") as out_f:
             output.write(out_f)
 
     return [x1, y1, x2, y2]
